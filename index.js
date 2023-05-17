@@ -31,6 +31,11 @@ async function run() {
 
     const productCollection = client.db("amazonDB").collection("products");
 
+    app.get('/totalProducts', async(req, res) => {
+      const result = await productCollection.estimatedDocumentCount();
+      res.send({totalProducts: result})
+    })
+
     app.get('/products', async(req, res) => {
         const result = await productCollection.find().toArray();
         res.send(result)
